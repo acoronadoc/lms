@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Learning Management System (Beta)</title>
+	
+		<script type='text/javascript' src="/js/lostsyscom.js" async></script>
+		<script type='text/javascript' src="/js/main.js" async></script>
+
+		<link rel='stylesheet' type='text/css' media='all' href="/css/main.css" />
+		
+		<link rel='stylesheet' type='text/css' media='all' href="/other/fontawesome-free-5.12.0-web/css/all.css" />
+		
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<meta name="google-signin-client_id" th:content="${googleSiginClient}" />
+	</head>
+	
+	<body>
+		
+		<div id='top-bar'>
+			<div class='top-bar-title'>Learning Management System (Beta)</div>
+			<button class='top-bar-hamb' onclick='javascript: openHamb();'><i class="fas fa-bars"></i></button>
+		</div>
+		
+		<div id='wrapper'>	
+		</div>
+		
+		<div id='login-box' class='shadow-box'>
+			<h1>Login</h1>
+				
+			<div class='msgs'></div>
+					
+			<div id="google-sign-in" class="g-signin2" data-longtitle="true" data-onsuccess="onSignIn"></div>
+				
+			<div id='debug-button' th:if="${devMode == 1}"><a href='#' onclick='javascript: devLogin(event);'>Dev login</a></div>
+		</div>
+	</body>
+
+</html>
