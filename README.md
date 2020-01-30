@@ -1,5 +1,5 @@
 # Learning Management System
-El objetivo de este proyecto es desarrollar un LMS(Learning Management System) social y 100% open source. El desarrollo del proyecto se está documentando a través de los vídeos de Youtube de la siguiente [lista de vídeos](https://www.youtube.com/watch?v=R7qYqM8uExc&list=PLwH0tlWs8nkTdVSXLNtiNKGG3PVE7whMt){:target="_blank"}.
+El objetivo de este proyecto es desarrollar un LMS(Learning Management System) social y 100% open source. El desarrollo del proyecto se está documentando a través de los vídeos de Youtube de la siguiente [lista de vídeos](https://www.youtube.com/watch?v=R7qYqM8uExc&list=PLwH0tlWs8nkTdVSXLNtiNKGG3PVE7whMt target="_blank").
 
 Se puede ver una demo del proyecto en el siguiente enlace [https://academy.albertcoronado.com](https://academy.albertcoronado.com){:target="_blank"}.
 
