@@ -1,0 +1,19 @@
+<div class='lms-path' >
+	<a href='#' th:if="${isSubscribed}" onclick="javascript: loadContent(event,'mycourses');"><i class="fas fa-backspace"></i> Mis cursos</a>
+	<a href='#' th:if="${!isSubscribed}" onclick="javascript: loadContent(event,'coursesmarketplace');"><i class="fas fa-backspace"></i> Cursos</a>
+</div>
+
+<h1 th:text='${c.title}'></h1>
+
+<div class='success-msg' th:if="${okmsg!=''}" th:text='${okmsg}' ></div>
+<div class='error-msg' th:if="${errormsg!=''}" th:text='${errormsg}' ></div>
+
+<div class='course-description' th:utext="${c.description}"></div>
+
+<div class='clear'></div>
+
+<div class='course-unsubscription-box menu-box-item' th:if="${isSubscribed}">
+	<a href='#' th:course="${c.id}" onclick="javascript: if ( confirm('Seguro que deseas dejar el curso?') ) loadContent(event,'showcourse', { 'id': this.getAttribute('course'), 'unsubscribe': this.getAttribute('course') });">
+		<i class="fas fa-sign-out-alt"></i> Dejar el curso
+	</a>
+</div>

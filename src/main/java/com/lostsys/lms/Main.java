@@ -17,6 +17,9 @@ public class Main {
 	@Value("${lms.dev.mode}")
 	private int devMode;
 	
+	@Value("${app.title}")
+	private String appTitle;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
 		}
@@ -26,6 +29,7 @@ public class Main {
 	public ModelAndView home() {
 		ModelAndView mav=new ModelAndView("index");
 		
+		mav.addObject("appTitle", appTitle);
 		mav.addObject("googleSiginClient", googleSiginClient);
 		mav.addObject("devMode", devMode);
 		

@@ -1,0 +1,24 @@
+<h1>Cursos</h1>
+
+<div class='success-msg' th:if="${okmsg!=''}" th:text='${okmsg}' ></div>
+<div class='error-msg' th:if="${errormsg!=''}" th:text='${errormsg}' ></div>
+
+<div class='course-list'>
+	<div class='course-item' th:each="course: ${courses}" th:if="${course.visible==1}">
+		<div class='course-item-image' th:style="'background-image: url('+${course.img}+');'"></div>
+		
+		<a href='#' th:course="${course.id}" onclick="javascript: loadContent(event,'showcourse',{ 'id': this.getAttribute('course') });"><div class='course-item-title' th:text="${course.title}"></div></a>
+
+		
+		<div class='course-item-options'>
+		
+			<a href='#' th:course="${course.id}" th:if="${!#lists.contains(couresList, course.id)}" onclick="javascript: loadContent(event,'coursesmarketplace', { 'subscribe': this.getAttribute('course') });">
+				<i class="fas fa-crosshairs"></i> Subscribe
+			</a>
+
+			<span class='course-item-subscribed' th:if="${#lists.contains(couresList, course.id)}">Subscribed</span>
+		</div>
+	</div>
+</div>
+
+<div class='clear'></div>

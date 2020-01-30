@@ -1,7 +1,6 @@
 
-<div class='left-bar-1'>
-	<h1>Mis cursos</h1>
-	<div class='platform-message'>Todavía no tienes cursos. En breve tendremos cursos disponibles.</div>
+<div id='main-content' class='left-bar-1'>
+	
 </div>
 
 <div class='right-bar-1'>
@@ -9,14 +8,18 @@
 		<button onclick='javascript: closeHamb();'><i class="fas fa-times"></i></button>
 	</div>
 
-	<div class='shadow-box'>
+	<div>
 		<div id='user-box'>
 			<img th:src='${img}' />
 			<div class='user-box-name'>
 				<span th:text="${name}"></span>
-				<br/>
-				<a href='#' onclick='javascript: signOut(event);'>log out</a>
 			</div>
 		</div>
 	</div>
+	
+	<div class='menu-box'>
+		<a href='#' onclick="javascript: loadContent(event,'mycourses');"><div class='menu-box-item'><i class="fas fa-home"></i> Mis cursos</div></a>
+		<a href='#' onclick="javascript: loadContent(event,'coursesmarketplace');"><div class='menu-box-item'><i class="fas fa-search"></i> Buscar cursos</div></a>
+		<a href='#' onclick='javascript: signOut(event);'><div class='menu-box-item'><i class="fas fa-power-off"></i> Salir</div></a>
+	</div>	
 </div>

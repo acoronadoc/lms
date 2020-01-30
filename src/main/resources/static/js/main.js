@@ -46,6 +46,20 @@ function devLogin(event) {
 	
 	}
 
+function loadContent(event,content, other) {
+	event.preventDefault();
+	
+	var p={ 
+			'logininfo': logininfo,
+			'content': content
+		};
+
+	if ( other ) p.other=other;
+	
+	execute( "/api/content", p );	
+	}
+
+/* Responsive */
 function openHamb() {
 	if ( !document.querySelector('.right-bar-1') ) return;
 	
