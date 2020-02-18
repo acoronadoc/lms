@@ -14,6 +14,15 @@
 		
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 		<meta name="google-signin-client_id" th:content="${googleSiginClient}" />
+		
+		<script th:if="${idAnalytics != ''}" async th:src="'https://www.googletagmanager.com/gtag/js?id='+${idAnalytics}"></script>
+		<script th:if="${idAnalytics != ''}" >
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		</script>
+		<script th:if="${idAnalytics != ''}" th:utext="'gtag(\'config\', \''+${idAnalytics}+'\');'"></script>
+		
 	</head>
 	
 	<body>

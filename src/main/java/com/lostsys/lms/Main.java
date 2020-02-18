@@ -14,12 +14,16 @@ public class Main {
 	@Value("${google.signin.client}")
 	private String googleSiginClient;
 
+	@Value("${google.analytics.id}")
+	private String idAnalytics;
+
 	@Value("${lms.dev.mode}")
 	private int devMode;
 	
 	@Value("${app.title}")
 	private String appTitle;
 	
+
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
 		}
@@ -32,6 +36,7 @@ public class Main {
 		mav.addObject("appTitle", appTitle);
 		mav.addObject("googleSiginClient", googleSiginClient);
 		mav.addObject("devMode", devMode);
+		mav.addObject("idAnalytics", idAnalytics);
 		
 		return mav;
 		}		

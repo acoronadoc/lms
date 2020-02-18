@@ -32,6 +32,9 @@ public class User {
 	
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Course> course;
+    
+    @OneToMany(mappedBy="userId")
+    private Set<Role> roles;
 
 	public int getId() {
 		return id;
@@ -71,5 +74,15 @@ public class User {
 
 	public void setCourse(Set<Course> course) {
 		this.course = course;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}    
+	
+	
 }

@@ -1,7 +1,10 @@
 package com.lostsys.lms.utils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CommUtils {
 	private ArrayList<HashMap<String, Object>> parts=new ArrayList<HashMap<String, Object>>();
@@ -30,5 +33,5 @@ public class CommUtils {
 		
 		return r;
 		}
-	
+
 	}

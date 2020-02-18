@@ -1,4 +1,8 @@
 var partScripts={};
+var partHeaders={
+		'Accept': 'application/json',
+		'Content-Type': 'application/json'
+		};
 
 function execute( url, reg, onSuccess ) {
 	var post=JSON.stringify(reg);
@@ -6,10 +10,7 @@ function execute( url, reg, onSuccess ) {
 	fetch( url, {
 		  method: 'POST', 
 		  body: post,
-		  headers: {
-		      'Accept': 'application/json',
-		      'Content-Type': 'application/json'
-		    }		  
+		  headers: partHeaders,		  
 		} ).then(function(response) {
 			response.json().then(function(p) {
 				if ( !onSuccess )

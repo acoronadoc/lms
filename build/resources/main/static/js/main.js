@@ -1,15 +1,16 @@
-var logininfo = null;
 
 function onSignIn(googleUser) {
 	
 	var profile = googleUser.getBasicProfile();
+	
+	partHeaders["Authorization-Type"]="google";
+	partHeaders["Authorization"]=googleUser.getAuthResponse().id_token;
 
 	execute( "/api/login", { 
 		'mail': profile.getEmail(),
 		'name': profile.getName(),
 		'img': profile.getImageUrl(),
 		'idtoken': googleUser.getAuthResponse().id_token
-
 		} 
 	);
 	
@@ -18,9 +19,7 @@ function onSignIn(googleUser) {
 function signOut(event) {
 	event.preventDefault();
 
-	if ( !logininfo ) return;
-	
-	if ( !logininfo.idtoken ) {
+	if ( partHeaders["Authorization-Type"]=="dev" ) {
 		execute( "/api/logout" );
 		
 		return;
@@ -29,13 +28,14 @@ function signOut(event) {
 	var auth2 = gapi.auth2.getAuthInstance();
 	auth2.signOut().then(function () {
 		execute( "/api/logout" );
-		
-		logininfo = null;
 		});
 	}
 
 function devLogin(event) {
 	event.preventDefault();
+	
+	partHeaders["Authorization-Type"]="dev";
+	partHeaders["Authorization"]="developer@dev";
 	
 	execute( "/api/login", { 
 			'mail': 'developer@dev',

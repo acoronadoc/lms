@@ -42,12 +42,6 @@ public class Login {
 	public HashMap<String, Object> login( @RequestBody Map<String, Object> payload ) {
 		CommUtils r=new CommUtils();
 		
-		if ( !lmsService.checkLogin( payload ) ) {
-			r.appendHtmlPart(".msgs","<div class='error-msg'>Error al hacer login.</div>");
-			
-			return r.toHashMap();
-			}
-		
 		lmsService.initUser(
 				payload.get("mail").toString(), 
 				payload.get("name").toString(), 
@@ -76,7 +70,7 @@ public class Login {
 		CommUtils r=new CommUtils();
 		
 		r.appendScriptPart( "document.querySelector('#login-box').setAttribute( 'style', '' );" );
-		r.appendScriptPart( "logininfo = null;" );
+		r.appendScriptPart( "delete partHeaders[\"Authorization-Type\"]; delete partHeaders[\"Authorization\"];" );
 		r.appendHtmlPart("#wrapper", "" );
 		
 		return r.toHashMap();

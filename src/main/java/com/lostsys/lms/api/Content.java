@@ -1,13 +1,16 @@
 package com.lostsys.lms.api;
 
 import com.lostsys.lms.model.Course;
+import com.lostsys.lms.model.History;
 import com.lostsys.lms.model.User;
 import com.lostsys.lms.repository.CourseRepository;
+import com.lostsys.lms.repository.HistoryRepository;
 import com.lostsys.lms.repository.UserRepository;
 import com.lostsys.lms.service.LmsService;
 import com.lostsys.lms.utils.CommUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -33,14 +36,15 @@ public class Content {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private HistoryRepository historyRepository;
 	
 	@RequestMapping(
 		    value = "/api/content", 
 		    method = RequestMethod.POST)	
 	public HashMap<String, Object> content( @RequestBody Map<String, Object> payload ) {
 		CommUtils r=new CommUtils();
-		
-		if ( !lmsService.checkLogin( (Map<String, Object>) payload.get("logininfo") ) ) return r.toHashMap();
 		
 		if ( payload.get("content").equals("coursesmarketplace") ) r.appendHtmlPart("#main-content", getCourses(payload) );
 		else if ( payload.get("content").equals("mycourses") ) r.appendHtmlPart("#main-content", getMyCourses(userRepository, templateEngine, payload) );
@@ -69,6 +73,13 @@ public class Content {
 					u.getCourse().remove( c );
 					
 					u=userRepository.save( u );
+
+					History h=new History();
+					h.setEvent("UNSUBSCRIBE");
+					h.setUserId( u.getId() );
+					h.setCourseId( c.getId() );
+					h.setDate( new Date() );
+					historyRepository.save( h );
 					
 					ctx.setVariable("okmsg", "Te has desubscrito del curso '"+c.getTitle()+"'." );
 					
@@ -76,6 +87,7 @@ public class Content {
 					}
 					
 				}
+			
 			
 			}
 		
@@ -128,6 +140,13 @@ public class Content {
 				u.getCourse().add( c );
 				
 				u=userRepository.save( u );
+				
+				History h=new History();
+				h.setEvent("SUBSCRIBE");
+				h.setUserId( u.getId() );
+				h.setCourseId( c.getId() );
+				h.setDate( new Date() );
+				historyRepository.save( h );				
 				
 				ctx.setVariable("okmsg", "Te has subscrito correctamente a '"+c.getTitle()+"'." );
 				} 
