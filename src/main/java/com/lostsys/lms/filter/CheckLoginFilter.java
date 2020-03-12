@@ -1,6 +1,7 @@
 package com.lostsys.lms.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lostsys.lms.model.User;
 import com.lostsys.lms.utils.CommUtils;
 
 import java.io.BufferedReader;

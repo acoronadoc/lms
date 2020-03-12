@@ -28,7 +28,7 @@
 	<body>
 		
 		<div id='top-bar'>
-			<div class='top-bar-title' th:text="${appTitle}"></div>
+			<div class='top-bar-title' th:utext="${appTitle}"></div>
 			<button class='top-bar-hamb' onclick='javascript: openHamb();'><i class="fas fa-bars"></i></button>
 		</div>
 		
@@ -44,6 +44,7 @@
 				
 			<div id='debug-button' th:if="${devMode == 1}"><a href='#' onclick='javascript: devLogin(event);'>Dev login</a></div>
 		</div>
+		
 	</body>
 
 </html>

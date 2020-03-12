@@ -35,6 +35,9 @@ public class Login {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Value("${app.footer}")
+	private String appFooter;
 
 	@RequestMapping(
 		    value = "/api/login", 
@@ -51,6 +54,7 @@ public class Login {
 		Context ctx = new Context();
 		ctx.setVariable("name", payload.get("name") );
 		ctx.setVariable("img", payload.get("img") );
+		ctx.setVariable("appFooter", appFooter);
 
 		r.appendScriptPart( "document.querySelector('#login-box').setAttribute( 'style', 'display: none;' );" );
 		r.appendHtmlPart("#wrapper", templateEngine.process("main-intranet", ctx) );

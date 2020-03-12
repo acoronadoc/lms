@@ -23,7 +23,6 @@ public class Main {
 	@Value("${app.title}")
 	private String appTitle;
 	
-
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
 		}

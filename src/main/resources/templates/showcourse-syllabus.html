@@ -1,0 +1,19 @@
+<div class='course-syllabus-item-content-part' th:each="p : ${parts}">
+
+	<div class='sitem sitem-yvideo' th:if="${p.type=='video-youtube'}">
+		<div class="video-responsive">
+			<iframe th:src="|https://www.youtube.com/embed/${p.videoId}|" frameborder="0" allowfullscreen></iframe>
+		</div>
+	</div>
+
+	<div class='sitem sitem-html' th:if="${p.type=='html'}" th:utext="${p.content}">
+	</div>
+
+	<div class='sitem sitem-link' th:if="${p.type=='link'}">
+		<a target='_blank' th:href='${p.href}'>
+			<i class="fas fa-link"></i>
+			<span th:text="${p.label}"></span>
+		</a>
+	</div>
+
+</div>

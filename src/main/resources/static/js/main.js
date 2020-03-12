@@ -59,6 +59,25 @@ function loadContent(event,content, other) {
 	execute( "/api/content", p );	
 	}
 
+/* Syllabus */
+function openSyllabus(event, index, courseId) {
+	
+	if ( event.currentTarget.parentElement.classList.contains('item-selected') ) {
+		event.preventDefault();
+		event.currentTarget.parentElement.classList.remove('item-selected');
+		return;
+		}
+	
+	document.querySelectorAll('.course-syllabus-item-content').forEach(function(currentValue, indice, array){
+	    currentValue.innerHTML="";
+	    if (currentValue.parentElement) currentValue.parentElement.classList.remove('item-selected');
+	    });
+
+	event.currentTarget.parentElement.classList.add('item-selected');
+
+	loadContent( event, "showsyllabuspart", { 'part': index, 'courseId': courseId } );
+	}
+
 /* Responsive */
 function openHamb() {
 	if ( !document.querySelector('.right-bar-1') ) return;

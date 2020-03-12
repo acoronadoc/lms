@@ -12,6 +12,21 @@
 
 <div class='clear'></div>
 
+<div class='course-syllabus'>
+	<div class='course-syllabus-item' th:each="s,index : ${syllabus}">
+		<a href='#' th:onclick="|javascript: openSyllabus(event,${index.index},${c.id});|">
+			<div class='course-syllabus-item-title'>
+				<span th:text="${s.title}"></span>
+				<i class="fas fa-plus"></i>
+				<i class="fas fa-minus"></i>
+			</div>
+		</a>
+		<div th:id="|syllabus_${index.index}|" class='course-syllabus-item-content'></div>
+	</div>
+</div>
+
+<div class='clear'></div>
+
 <div class='course-unsubscription-box menu-box-item' th:if="${isSubscribed}">
 	<a href='#' th:course="${c.id}" onclick="javascript: if ( confirm('Seguro que deseas dejar el curso?') ) loadContent(event,'showcourse', { 'id': this.getAttribute('course'), 'unsubscribe': this.getAttribute('course') });">
 		<i class="fas fa-sign-out-alt"></i> Dejar el curso

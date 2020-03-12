@@ -1,5 +1,6 @@
 package com.lostsys.lms.model;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -35,6 +36,13 @@ public class User {
     
     @OneToMany(mappedBy="userId")
     private Set<Role> roles;
+    
+	@Column
+	private Date created;
+
+	@Column
+	private Date lastLogin;
+
 
 	public int getId() {
 		return id;
@@ -82,6 +90,22 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
 	}    
 	
 	

@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,10 +51,40 @@ public class Content {
 		if ( payload.get("content").equals("coursesmarketplace") ) r.appendHtmlPart("#main-content", getCourses(payload) );
 		else if ( payload.get("content").equals("mycourses") ) r.appendHtmlPart("#main-content", getMyCourses(userRepository, templateEngine, payload) );
 		else if ( payload.get("content").equals("showcourse") ) r.appendHtmlPart("#main-content", getShowCourse(payload) );
+		else if ( payload.get("content").equals("showsyllabuspart") ) r.appendHtmlPart("#syllabus_"+((Map<String, Object>) payload.get("other")).get("part"), getSyllabusPart(payload) );
 		
 		return r.toHashMap();
 		}
 
+	public String getSyllabusPart( Map<String, Object> payload ) {
+		String mail=""+((Map<String, Object>) payload.get("logininfo")).get("mail");
+		String courseId=""+((Map<String, Object>) payload.get("other")).get("courseId");
+		String part=""+((Map<String, Object>) payload.get("other")).get("part");
+		
+		User u=userRepository.getUserByMail(mail);
+		Course course=null;
+		
+		for (Iterator<Course> i=u.getCourse().iterator(); i.hasNext(); ) {
+			Course c=i.next();
+			
+			if ( c.getId()==Integer.parseInt( courseId ) ) {
+				course=c;
+				break;
+				}
+			}
+		
+		if ( course==null )
+			return "<div class='error-msg'>Debes estar subscrito para ver el contenido del curso.</div>";
+		
+		
+		Context ctx = new Context();
+		JSONObject definition=new JSONObject( course.getDefinition() );
+		
+		ctx.setVariable("parts", definition.getJSONArray( "syllabus" ).getJSONObject( Integer.parseInt( part ) ).getJSONArray("parts").toList() );
+		
+		return templateEngine.process("showcourse-syllabus", ctx);
+		}
+	
 	public String getShowCourse( Map<String, Object> payload ) {
 		String mail=""+((Map<String, Object>) payload.get("logininfo")).get("mail");
 		Map<String, Object> other=(Map<String, Object>) payload.get("other");
@@ -94,8 +126,14 @@ public class Content {
 		if ( u==null ) u=userRepository.getUserByMail(mail);
 		Course c=courseRepository.findById( Integer.parseInt( ""+other.get("id") ) ).get();
 		
+		JSONObject definition=new JSONObject();		
+		try { definition=new JSONObject( c.getDefinition() ); } catch (Exception ex) { ex.printStackTrace(); }
+		
+		if ( !definition.has("syllabus") ) definition.put("syllabus", new JSONArray() );
+		
 		ctx.setVariable("c", c );
 		ctx.setVariable("isSubscribed", false );
+		ctx.setVariable("syllabus", definition.getJSONArray("syllabus").toList() );
 		if ( u.getCourse().contains( c ) ) ctx.setVariable("isSubscribed", true );
 		
 		return templateEngine.process("showcourse", ctx);
@@ -135,7 +173,7 @@ public class Content {
 			u=userRepository.getUserByMail(mail);
 			
 			if ( u.getCourse().size()>=2 ) {
-				ctx.setVariable("errormsg", "No mas de dos subscripciones por usuario." );
+				ctx.setVariable("errormsg", "Tu nivel de subscripción no te permiten mas de dos subscripciones al mismo tiempo." );
 			} else if ( !u.getCourse().contains(c) ) {
 				u.getCourse().add( c );
 				

@@ -18,8 +18,11 @@
 	</div>
 	
 	<div class='menu-box'>
-		<a href='#' onclick="javascript: loadContent(event,'mycourses');"><div class='menu-box-item'><i class="fas fa-home"></i> Mis cursos</div></a>
+		<a href='#' onclick="javascript: loadContent(event,'mycourses');"><div class='menu-box-item'><i class="fas fa-home"></i> Inicio</div></a>
 		<a href='#' onclick="javascript: loadContent(event,'coursesmarketplace');"><div class='menu-box-item'><i class="fas fa-search"></i> Buscar cursos</div></a>
 		<a href='#' onclick='javascript: signOut(event);'><div class='menu-box-item'><i class="fas fa-power-off"></i> Salir</div></a>
 	</div>	
 </div>
+
+<div class='clear'></div>
+<div id='footer' th:utext="${appFooter}"></div>
